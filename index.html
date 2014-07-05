@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +30,7 @@
   <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -39,17 +41,25 @@
           <a class="navbar-brand" href="http://dealoround.com/">Deal-O-Round Card Game</a>
         </div>
         <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.dealoround.android">Android</a></li>
+            <li><a href="https://www.facebook.com/pages/DealORound/1436508169931735">Facebook</a></li>
+            <li><a href="privacy-statement.html">Privacy Statement</a></li>
+          </ul>
         </div><!--/.navbar-collapse -->
-      </div>
+      </div><!--/.container-fluid -->
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h1>Welcome to Deal-O-Round's webpage</h1>
-        <p>This project started as a gig for the <a href="http://59daysofcode.com/">59DaysOfCode contest</a> by 4 developers.
-        Have fun and play with our card game!</p>
-        <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more »</a></p>-->
+        <p>A fun card game featuring poker combinations with a hint of tetris and slot machines.
+           Find poker combinations on the table and gain points! Give us feedback on our Facebook page.
+           This game started as a contestant for the <a href="http://59daysofcode.com/">59DaysOfCode</a>
+           competition by Team Bad Wolf. Our goal is to provide you an opportunity to have a good time!</p>
+           <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more »</a></p>-->
       </div>
     </div>
 
@@ -57,7 +67,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>Android Port</h2>
+          <h2>Android Game</h2>
           <p>Follow the link below for the Android version of the game:</p>
           <p><a class="btn btn-default" href="https://play.google.com/store/apps/details?id=com.dealoround.android" role="button">Go to the Android Store »</a></p>
         </div>
@@ -65,11 +75,24 @@
           <h2>Facebook Page</h2>
           <p>Interact with us and give us feedback on our Facebook page. Check out latest news:</p>
           <p><a class="btn btn-default" href="https://www.facebook.com/pages/DealORound/1436508169931735" role="button">Go to Facebook »</a></p>
-       </div>
+        </div>
         <div class="col-md-4">
           <h2>On-Line Demo</h2>
           <p>A demo version is available on-line!</p>
-          <p><a class="btn btn-default" href="http://MrCsabaToth.github.io/DealORoundWebsite/game/" role="button">On-Line Demo »</a></p>
+          <p><a class="btn btn-default" href="game/" role="button">On-Line Demo »</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Privacy Statement</h2>
+          <p>Check out our privacy statement. In a nutshell: we only store your username and score for the sake of the game.
+             Some third parties may receive information about you, like if you play our (or any other) game on Google Play
+             Google will get some information about you.</p>
+          <p><a class="btn btn-default" href="privacy-statement.html" role="button">Privacy Statement »</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Team Bad Wolf</h2>
+          <p>Csaba Toth, Michael Twohey, Tim Yopp, Vernon Burt</p>
         </div>
       </div>
 
@@ -85,6 +108,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-</body></html>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
