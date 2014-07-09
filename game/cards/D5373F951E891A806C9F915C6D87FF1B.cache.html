@@ -4,7 +4,7 @@ var $gwt_version = "2.5.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '247FAB569C6BD7B81A2431418D6C0C00';
+var $strongName = 'D5373F951E891A806C9F915C6D87FF1B';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'cards',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -3554,13 +3554,17 @@ function $clinit_EndScene(){
 }
 
 function $drawAllScores(this$static){
+  var finalBase;
   $drawScene(this$static, 'GLOBAL TOP SCORES');
-  $FetchUserNames(this$static.dataStoreSvc, new EndScene$3_0(this$static));
+  finalBase = this$static.base;
+  $FetchUserNames(this$static.dataStoreSvc, new EndScene$3_0(this$static, finalBase));
 }
 
 function $drawMyScores(this$static){
+  var finalBase;
   $drawScene(this$static, 'YOUR TOP SCORES');
-  $FetchUserScores(this$static.dataStoreSvc, this$static.currentUser.Name, new EndScene$2_0(this$static));
+  finalBase = this$static.base;
+  $FetchUserScores(this$static.dataStoreSvc, this$static.currentUser.Name, new EndScene$2_0(this$static, finalBase));
 }
 
 function $drawScene(this$static, title){
@@ -3639,8 +3643,7 @@ _.init = function init_2(gameReference){
      else 
       throw $e0;
   }
-  $drawScene(this, 'YOUR TOP SCORES');
-  $FetchUserScores(this.dataStoreSvc, this.currentUser.Name, new EndScene$2_0(this));
+  $drawMyScores(this);
   $setListener(platform_1.pointer, new EndScene$1_0(this));
 }
 ;
@@ -3708,18 +3711,19 @@ function $onSuccess_2(this$static, result){
     layout2 = $layoutText(platform_1.graphics, '' + ++counter + ' ' + this$static.this$0.currentUser.Name, format2);
     layer2 = createTextLayer(layout2, -1);
     layer2.setTranslation(380, this$static.this$0.ypos);
-    this$static.this$0.base.add_1(layer2);
+    this$static.val$finalBase.add_1(layer2);
     scorelayout2 = $layoutText(platform_1.graphics, '' + score, format2);
     scorelayer2 = createTextLayer(scorelayout2, -1);
     scorelayer2.setTranslation(920, this$static.this$0.ypos);
-    this$static.this$0.base.add_1(scorelayer2);
+    this$static.val$finalBase.add_1(scorelayer2);
     this$static.this$0.ypos += 0.699999988079071 * layout2.metrics.height_0 + $descent(layout2.metrics);
     this$static.this$0.ypos += this$static.this$0.MARGIN;
   }
 }
 
-function EndScene$2_0(this$0){
+function EndScene$2_0(this$0, val$finalBase){
   this.this$0 = this$0;
+  this.val$finalBase = val$finalBase;
 }
 
 defineSeed(92, 1, {}, EndScene$2_0);
@@ -3732,8 +3736,10 @@ _.onSuccess = function onSuccess_4(result){
 }
 ;
 _.this$0 = null;
-function EndScene$3_0(this$0){
+_.val$finalBase = null;
+function EndScene$3_0(this$0, val$finalBase){
   this.this$0 = this$0;
+  this.val$finalBase = val$finalBase;
 }
 
 defineSeed(93, 1, {}, EndScene$3_0);
@@ -3744,10 +3750,11 @@ _.onFailure_0 = function onFailure_5(cause){
 _.onSuccess = function onSuccess_5(result){
   var names;
   result != null && !!result.length?(names = $split($trim(result), ':', 0)):(names = initValues(_3Ljava_lang_String_2_classLit, makeCastMap([Q$Serializable]), Q$String, ['', '', '', '', '', '', '', '', '', '']));
-  $FetchAllUserScores(this.this$0.dataStoreSvc, new EndScene$3$1_0(this, names));
+  $FetchAllUserScores(this.this$0.dataStoreSvc, new EndScene$3$1_0(this, names, this.val$finalBase));
 }
 ;
 _.this$0 = null;
+_.val$finalBase = null;
 function $onSuccess_3(this$static, result){
   var counter, font, format2, i, layer2, layout2, score, score$index, score$max, scorelayer2, scorelayout2, scores, stringScores;
   scores = initValues(_3I_classLit, makeCastMap([Q$Serializable]), -1, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -3767,19 +3774,20 @@ function $onSuccess_3(this$static, result){
     layout2 = $layoutText(platform_1.graphics, '' + ++counter + ' ' + this$static.val$names[counter - 1], format2);
     layer2 = createTextLayer(layout2, -1);
     layer2.setTranslation(380, this$static.this$1.this$0.ypos);
-    this$static.this$1.this$0.base.add_1(layer2);
+    this$static.val$finalBase.add_1(layer2);
     scorelayout2 = $layoutText(platform_1.graphics, '' + score, format2);
     scorelayer2 = createTextLayer(scorelayout2, -1);
     scorelayer2.setTranslation(920, this$static.this$1.this$0.ypos);
-    this$static.this$1.this$0.base.add_1(scorelayer2);
+    this$static.val$finalBase.add_1(scorelayer2);
     this$static.this$1.this$0.ypos += 0.699999988079071 * layout2.metrics.height_0 + $descent(layout2.metrics);
     this$static.this$1.this$0.ypos += this$static.this$1.this$0.MARGIN;
   }
 }
 
-function EndScene$3$1_0(this$1, val$names){
+function EndScene$3$1_0(this$1, val$names, val$finalBase){
   this.this$1 = this$1;
   this.val$names = val$names;
+  this.val$finalBase = val$finalBase;
 }
 
 defineSeed(94, 1, {}, EndScene$3$1_0);
@@ -3792,6 +3800,7 @@ _.onSuccess = function onSuccess_6(result){
 }
 ;
 _.this$1 = null;
+_.val$finalBase = null;
 _.val$names = null;
 function $clinit_HelpScene(){
   $clinit_HelpScene = nullMethod;
@@ -4092,6 +4101,8 @@ function SettingsScene$2_0(this$0, val$animationSlider, val$animationValue){
 }
 
 defineSeed(105, 99, {}, SettingsScene$2_0);
+--></script>
+<script><!--
 _.onEmit_0 = function onEmit_2(){
   var newAnimSpd;
   newAnimSpd = this.val$animationSlider.value_0._value.value_0;
@@ -4102,8 +4113,6 @@ _.onEmit_0 = function onEmit_2(){
 _.this$0 = null;
 _.val$animationSlider = null;
 _.val$animationValue = null;
---></script>
-<script><!--
 function SettingsScene$3_0(this$0, val$scaleSlider, val$scaleValue){
   this.this$0 = this$0;
   this.val$scaleSlider = val$scaleSlider;
@@ -5117,6 +5126,8 @@ function Style$FontWeight$4_0(){
 }
 
 defineSeed(170, 166, makeCastMap([Q$Style$FontWeight, Q$Style$HasCssName, Q$Serializable, Q$Comparable, Q$Enum]), Style$FontWeight$4_0);
+--></script>
+<script><!--
 function $clinit_Style$Overflow(){
   $clinit_Style$Overflow = nullMethod;
   VISIBLE = new Style$Overflow$1_0;
@@ -5131,8 +5142,6 @@ function values_12(){
   return $VALUES_11;
 }
 
---></script>
-<script><!--
 defineSeed(171, 26, makeCastMap([Q$Style$HasCssName, Q$Style$Overflow, Q$Serializable, Q$Comparable, Q$Enum]));
 var $VALUES_11, AUTO, HIDDEN, SCROLL, VISIBLE;
 function Style$Overflow$1_0(){

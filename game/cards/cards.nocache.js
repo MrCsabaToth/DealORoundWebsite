@@ -249,7 +249,7 @@ function cards(){
   $stats && $stats({moduleName:'cards', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      strongName = '247FAB569C6BD7B81A2431418D6C0C00';
+      strongName = 'D5373F951E891A806C9F915C6D87FF1B';
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
