@@ -4,7 +4,7 @@ var $gwt_version = "2.5.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '77415158E60D2F41119E2CE0457E524E';
+var $strongName = '03160FC43F849521EFADC83ED59FF1D7';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'cards',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -683,6 +683,10 @@ _.setVolume_0 = function setVolume(volume){
   this.loadState == ($clinit_Sound$LoadState() , LOAD_STATE_SUPPORTED_AND_READY) && $setVolume(this.voicesMovie, this.soundNumber, volume);
 }
 ;
+_.stop_0 = function stop_0(){
+  this.loadState == ($clinit_Sound$LoadState() , LOAD_STATE_SUPPORTED_AND_READY) && $stopSound(this.voicesMovie, this.soundNumber);
+}
+;
 _.looping = false;
 _.soundNumber = 0;
 _.soundRegistered = false;
@@ -789,6 +793,10 @@ _.setVolume_0 = function setVolume_0(volume){
   $setVolume_2(this.audio.element, volume / 100);
 }
 ;
+_.stop_0 = function stop_1(){
+  this.audio.element.pause();
+}
+;
 _.audio = null;
 _.endedRegistration = null;
 function Html5Sound$1_0(this$0){
@@ -840,6 +848,10 @@ _.setLooping_0 = function setLooping_1(looping){
 ;
 _.setVolume_0 = function setVolume_1(volume){
   $setVolume_0(this.element, volume);
+}
+;
+_.stop_0 = function stop_2(){
+  $stop(this.element);
 }
 ;
 _.element = null;
@@ -895,6 +907,8 @@ function $clinit_SoundController(){
   $wnd.$GWT_VOICES_VERSION = '3.2.0';
 }
 
+--></script>
+<script><!--
 function $createSound(this$static, url){
   var sound;
   sound = $createSoundImpl(this$static, url);
@@ -902,8 +916,6 @@ function $createSound(this$static, url){
   return sound;
 }
 
---></script>
-<script><!--
 function $createSoundImpl(this$static, url){
   var c, c$array, c$index, c$max, sound;
   sound = null;
@@ -1184,7 +1196,7 @@ _.soundLoaded_0 = function soundLoaded(){
   $setLoadState(this, ($clinit_Sound$LoadState() , LOAD_STATE_SUPPORTED_AND_READY));
 }
 ;
-_.stop_0 = function stop_0(){
+_.stop_0 = function stop_3(){
   var context = audioContext;
   var voice = this.voice;
   if (voice == null) {
@@ -1642,6 +1654,11 @@ function $setVolume(this$static, id, volume){
   this$static.flashSupport == ($clinit_SoundController$MimeTypeSupport() , MIME_TYPE_SUPPORT_READY) && (elem = this$static.element , elem.setVolume(id, volume / 100) , undefined);
 }
 
+function $stopSound(this$static, id){
+  var elem;
+  this$static.flashSupport == ($clinit_SoundController$MimeTypeSupport() , MIME_TYPE_SUPPORT_READY) && (elem = this$static.element , elem.stopSound(id) , undefined);
+}
+
 function VoicesMovie_0(id, gwtVoicesSwfBaseUrl){
   $clinit_VoicesMovie();
   this.element = $createElementMaybeSetURL(impl_1, id, gwtVoicesSwfBaseUrl + 'gwt-voices.swf');
@@ -1768,6 +1785,11 @@ function FlashMovieImplSafari_0(){
 }
 
 defineSeed(44, 45, {}, FlashMovieImplSafari_0);
+function $stop(elem){
+  var parent_0 = elem.parentNode;
+  parent_0 != null && parent_0.removeChild(elem);
+}
+
 function $createElement(url){
   var elem = $doc.createElement('object');
   elem.setAttribute('data', url);
@@ -1875,6 +1897,8 @@ function $activateScene(this$static, scene){
   }
 }
 
+--></script>
+<script><!--
 function $init_0(this$static){
   var $e0;
   $setListener_1(platform_1.keyboard, new CardGame$1_0(this$static));
@@ -1901,8 +1925,6 @@ function $setVolume_1(this$static, volume){
   this$static.volume_0 = volume;
 }
 
---></script>
-<script><!--
 function CardGame_0(){
   $clinit_CardGame();
   this.updateRate = 33;
@@ -2505,6 +2527,25 @@ function $newSlideCards(this$static){
   }
 }
 
+function $pauseGame(this$static){
+  var card, card$iterator;
+  this$static.isPaused = !this$static.isPaused;
+  if (this$static.isPaused) {
+    for (card$iterator = new AbstractList$IteratorImpl_0(this$static.playCards); card$iterator.i < card$iterator.this$0_0.size_0();) {
+      card = $next_2(card$iterator);
+      card.sprite.layer.setAlpha(0);
+    }
+    $stop_0(this$static.thecannery);
+  }
+   else {
+    for (card$iterator = new AbstractList$IteratorImpl_0(this$static.playCards); card$iterator.i < card$iterator.this$0_0.size_0();) {
+      card = $next_2(card$iterator);
+      card.sprite.layer.setAlpha(1);
+    }
+    $play_0(this$static.thecannery);
+  }
+}
+
 function $randomlyMoveColumn(col, rev){
   var card, card$iterator, rdm;
   rdm = round_int(Math.random() * 10) * 100 + 200;
@@ -2582,7 +2623,7 @@ function BoardScene_0(){
 
 defineSeed(69, 51, {}, BoardScene_0);
 _.init = function init_1(gameReference){
-  var $e0, bg, bgImage, bgLayer, bgtile, counterLayer, diamondCanvas, diamondImage, e, lvlLayer, scoreCanvas, scoreLayer, spinButtonLayer, spinCanvas;
+  var $e0, bg, bgImage, bgLayer, bgtile, counterLayer, diamondCanvas, diamondImage, e, lvlLayer, pauseImageLayer, scoreCanvas, scoreLayer, spinButtonLayer, spinCanvas;
   this.gameRef = gameReference;
   try {
     this.dataStoreSvc = new DataStoreService_0;
@@ -2630,6 +2671,9 @@ _.init = function init_1(gameReference){
   this.levelLayer = platform_1.graphics.createGroupLayer();
   this.levelLayer.setTranslation(984, 93);
   platform_1.graphics.rootLayer_0().add_1(this.levelLayer);
+  this.pauseLayer = platform_1.graphics.createGroupLayer();
+  this.pauseLayer.setTranslation(210, 93);
+  platform_1.graphics.rootLayer_0().add_1(this.pauseLayer);
   if (this.gameRef.volume_0 > 0.05) {
     this.shortshuffle = $getSound(platform_1.assets, 'sounds/shortcardshuffle');
     $setVolume_3(this.shortshuffle, this.gameRef.volume_0);
@@ -2674,8 +2718,12 @@ _.init = function init_1(gameReference){
   lvlLayer = platform_1.graphics.createImageLayer(scoreCanvas);
   lvlLayer.setTranslation(940, 83);
   this.tableLayer.add_1(lvlLayer);
+  pauseImageLayer = platform_1.graphics.createImageLayer(scoreCanvas);
+  pauseImageLayer.setTranslation(140, 83);
+  this.tableLayer.add_1(pauseImageLayer);
   drawString('Level 1', 0, 0, this.levelLayer, 32, 250);
   drawString('SPIN', 0, 0, this.spinLayer, 32, 250);
+  drawString('PAUSE', 0, 0, this.pauseLayer, 32, 250);
   this.score = 0;
   drawString('' + this.score, 0, 0, this.pointsLayer, 32, 250);
   $setupBoard(this);
@@ -2708,6 +2756,8 @@ _.shutdown = function shutdown_1(){
   this.timerLayer = null;
   this.levelLayer.destroy();
   this.levelLayer = null;
+  this.pauseLayer.destroy();
+  this.pauseLayer = null;
   $cancel(this.countDownTimerHandle);
   this.countDownTimer = null;
   this.levelSet = null;
@@ -2726,6 +2776,8 @@ _.shutdown = function shutdown_1(){
   }
 }
 ;
+--></script>
+<script><!--
 _.update = function update_1(delta){
   var card, card$iterator;
   for (card$iterator = new AbstractList$IteratorImpl_0(this.playCards); card$iterator.i < card$iterator.this$0_0.size_0();) {
@@ -2751,9 +2803,11 @@ _.dataStoreSvc = null;
 _.debugLayer = null;
 _.diamondLayer = null;
 _.gameRef = null;
+_.isPaused = false;
 _.levelLayer = null;
 _.levelSet = null;
 _.longshuffle = null;
+_.pauseLayer = null;
 _.pointerSelecting = false;
 _.pointerX = 0;
 _.pointerY = 0;
@@ -2767,14 +2821,20 @@ _.tableLayer = null;
 _.thecannery = null;
 _.timerLayer = null;
 var INSTANCE_0;
+function $run(this$static){
+  if (!this$static.this$0.isPaused) {
+    drawString('' + this$static.this$0.countDownCounter--, 0, 0, this$static.this$0.timerLayer, 32, 250);
+    this$static.this$0.countDownCounter < 0 && $finishGame(this$static.this$0);
+  }
+}
+
 function BoardScene$1_0(this$0){
   this.this$0 = this$0;
 }
 
 defineSeed(70, 1, {}, BoardScene$1_0);
 _.run = function run(){
-  drawString('' + this.this$0.countDownCounter--, 0, 0, this.this$0.timerLayer, 32, 250);
-  this.this$0.countDownCounter < 0 && $finishGame(this.this$0);
+  $run(this);
 }
 ;
 _.this$0 = null;
@@ -2783,10 +2843,10 @@ function BoardScene$2_0(this$0){
 }
 
 defineSeed(71, 64, {}, BoardScene$2_0);
---></script>
-<script><!--
 _.onPointerDrag = function onPointerDrag_1(event_0){
   var card;
+  if (this.this$0.isPaused)
+    return;
   this.this$0.pointerX = event_0.localX / this.this$0.scale_0;
   this.this$0.pointerY = event_0.localY / this.this$0.scale_0;
   if (this.this$0.pointerX < 420 || this.this$0.pointerX > 920 || this.this$0.pointerY < 120 || this.this$0.pointerY > 620) {
@@ -2807,6 +2867,12 @@ _.onPointerEnd = function onPointerEnd_1(event_0){
   var card, card$iterator, scoreResult;
   this.this$0.pointerX = event_0.localX / this.this$0.scale_0;
   this.this$0.pointerY = event_0.localY / this.this$0.scale_0;
+  if (this.this$0.pointerX > 140 && this.this$0.pointerY > 80 && this.this$0.pointerX < 320 && this.this$0.pointerY < 140) {
+    $pauseGame(this.this$0);
+    return;
+  }
+  if (this.this$0.isPaused)
+    return;
   this.this$0.pointerSelecting = false;
   scoreResult = $rankHandPlayCard(($getLevel(this.this$0.levelSet) , this.this$0.selectedHand));
   if ($getScore(scoreResult) > 0) {
@@ -2833,6 +2899,8 @@ _.onPointerEnd = function onPointerEnd_1(event_0){
 ;
 _.onPointerStart = function onPointerStart_1(event_0){
   var card;
+  if (this.this$0.isPaused)
+    return;
   this.this$0.pointerX = event_0.localX / this.this$0.scale_0;
   this.this$0.pointerY = event_0.localY / this.this$0.scale_0;
   card = $findByLocation(this.this$0, this.this$0.pointerX, this.this$0.pointerY);
@@ -3452,6 +3520,8 @@ function $dealCard_0(this$static){
   return null;
 }
 
+--></script>
+<script><!--
 function $shuffleAll(this$static){
   var deck, deck$iterator;
   for (deck$iterator = new AbstractList$IteratorImpl_0(this$static.decks); deck$iterator.i < deck$iterator.this$0_0.size_0();) {
@@ -3518,8 +3588,6 @@ _.layer = null;
 _.spriteImages = null;
 _.spriteSuitMap = null;
 _.spriteValueMap = null;
---></script>
-<script><!--
 function SpriteImage_0(image, x, y, width, height){
   this.image = image;
   this.x = x;
@@ -3644,7 +3712,7 @@ function $drawMyScores(this$static){
 }
 
 function $drawScene(this$static, title){
-  var allScoresCanvas, allScoresImageLayer, bgImage, bgLayer, currentFont, format, layer, layout, myScoresImageLayer, scorelayer, scorelayout, titleFont;
+  var allScoresCanvas, allScoresImageLayer, bgImage, bgLayer, currentFont, format, layer, layout, myScoresImageLayer, playAgainImageLayer, scorelayer, scorelayout, titleFont;
   !!this$static.base && this$static.base.removeAll();
   this$static.ypos = 90;
   this$static.base = platform_1.graphics.createGroupLayer();
@@ -3661,14 +3729,21 @@ function $drawScene(this$static, title){
   myScoresImageLayer = platform_1.graphics.createImageLayer(allScoresCanvas);
   myScoresImageLayer.setTranslation(100, 20);
   this$static.base.add_1(myScoresImageLayer);
+  playAgainImageLayer = platform_1.graphics.createImageLayer(allScoresCanvas);
+  playAgainImageLayer.setTranslation(950, 690);
+  this$static.base.add_1(playAgainImageLayer);
   this$static.myScoresLayer = platform_1.graphics.createGroupLayer();
   this$static.myScoresLayer.setTranslation(145, 32);
   this$static.base.add_1(this$static.myScoresLayer);
   this$static.allScoresLayer = platform_1.graphics.createGroupLayer();
   this$static.allScoresLayer.setTranslation(980, 32);
   this$static.base.add_1(this$static.allScoresLayer);
+  this$static.playAgainLayer = platform_1.graphics.createGroupLayer();
+  this$static.playAgainLayer.setTranslation(1010, 702);
+  this$static.base.add_1(this$static.playAgainLayer);
   drawString('Your Top Scores', 0, 0, this$static.myScoresLayer, 26, 800);
   drawString('Global Top Scores', 0, 0, this$static.allScoresLayer, 26, 800);
+  drawString('PLAY AGAIN', 0, 0, this$static.playAgainLayer, 26, 800);
   titleFont = new HtmlFont_0(platform_1.graphics, 'Helvetica', ($clinit_Font$Style() , BOLD_0), 44);
   format = (new TextFormat_0).withFont(titleFont);
   layout = $layoutText(platform_1.graphics, title, format);
@@ -3700,6 +3775,7 @@ function EndScene_0(){
 defineSeed(90, 51, {}, EndScene_0);
 _.init = function init_2(gameReference){
   var $e0, e;
+  this.gameRef = gameReference;
   this.scale_0 = platform_1.graphics.height_2() / 768 * gameReference.scaleModifier;
   platform_1.graphics.rootLayer_0().setScale(this.scale_0, this.scale_0);
   if (gameReference.volume_0 > 0.05) {
@@ -3730,6 +3806,8 @@ _.shutdown = function shutdown_2(){
   this.allScoresLayer = null;
   this.myScoresLayer.destroy();
   this.myScoresLayer = null;
+  this.playAgainLayer.destroy();
+  this.playAgainLayer = null;
   if (this.partySound) {
     $release(this.partySound);
     this.partySound = null;
@@ -3746,8 +3824,10 @@ _.base = null;
 _.currentFormat = null;
 _.currentUser = null;
 _.dataStoreSvc = null;
+_.gameRef = null;
 _.myScoresLayer = null;
 _.partySound = null;
+_.playAgainLayer = null;
 _.pointerX = 0;
 _.pointerY = 0;
 _.scale_0 = 0;
@@ -3765,6 +3845,7 @@ _.onPointerEnd = function onPointerEnd_2(event_0){
   this.this$0.pointerY = event_0.localY / this.this$0.scale_0;
   this.this$0.pointerX > 950 && this.this$0.pointerY > 20 && this.this$0.pointerX < 1230 && this.this$0.pointerY < 80 && $drawAllScores(this.this$0);
   this.this$0.pointerX > 100 && this.this$0.pointerY > 20 && this.this$0.pointerX < 380 && this.this$0.pointerY < 80 && $drawMyScores(this.this$0);
+  this.this$0.pointerX > 950 && this.this$0.pointerY > 690 && this.this$0.pointerX < 1230 && this.this$0.pointerY < 750 && $activateScene(this.this$0.gameRef, ($clinit_BoardScene() , $clinit_BoardScene() , INSTANCE_0));
 }
 ;
 _.this$0 = null;
@@ -4088,6 +4169,8 @@ function SettingsScene_0(){
 }
 
 defineSeed(103, 51, {}, SettingsScene_0);
+--></script>
+<script><!--
 _.init = function init_5(gameReference){
   var animationGroup, animationSlider, animationSliderGroup, animationValue, bgImage, bgLayer, bigLabel, currentVolume, currentVolumeStr, root, scale, scaleGroup, scaleSlider, scaleSliderGroup, scaleValue, volumeGroup, volumeSlider, volumeSliderGroup, volumeValue;
   this.gameRef = gameReference;
@@ -4170,8 +4253,6 @@ _.onEmit_0 = function onEmit_1(){
 _.this$0 = null;
 _.val$volumeSlider = null;
 _.val$volumeValue = null;
---></script>
-<script><!--
 function SettingsScene$2_0(this$0, val$animationSlider, val$animationValue){
   this.this$0 = this$0;
   this.val$animationSlider = val$animationSlider;
@@ -4965,6 +5046,8 @@ function StackTraceCreator$CollectorChromeNoSourceMap_0(){
 }
 
 defineSeed(141, 139, {}, StackTraceCreator$CollectorChromeNoSourceMap_0);
+--></script>
+<script><!--
 defineSeed(142, 1, {});
 function $append(this$static, x){
   this$static.string += x;
@@ -5201,8 +5284,6 @@ function Style$FontWeight$4_0(){
   Enum_0.call(this, 'LIGHTER', 3);
 }
 
---></script>
-<script><!--
 defineSeed(170, 166, makeCastMap([Q$Style$FontWeight, Q$Style$HasCssName, Q$Serializable, Q$Comparable, Q$Enum]), Style$FontWeight$4_0);
 function $clinit_Style$Overflow(){
   $clinit_Style$Overflow = nullMethod;
@@ -5940,6 +6021,8 @@ function $formatFractionalSeconds(buf, count, date){
   }
 }
 
+--></script>
+<script><!--
 function $formatMonth(buf, count, date){
   var value;
   value = date.jsdate.getMonth();
@@ -6063,8 +6146,6 @@ function $parsePattern(this$static){
   $identifyAbutStart(this$static);
 }
 
---></script>
-<script><!--
 function $subFormat(buf, ch, count, adjustedDate, adjustedTime, timezone){
   var value, value_0, value_1, value_2, value_3, value_4, value_5, value_6, value_7, value_8, value_9, value_10;
   switch (ch) {
@@ -6974,6 +7055,8 @@ function $removeFromParent(this$static){
   }
 }
 
+--></script>
+<script><!--
 function $setParent(this$static, parent_0){
   var oldParent;
   oldParent = this$static.parent_0;
@@ -7104,8 +7187,6 @@ function Storage$StorageSupportDetector_0(){
 }
 
 defineSeed(256, 1, {}, Storage$StorageSupportDetector_0);
---></script>
-<script><!--
 function $getItem_0(storage, key){
   return $wnd[storage].getItem(key);
 }
@@ -8044,6 +8125,8 @@ function getBodyElement(){
   return $doc.body;
 }
 
+--></script>
+<script><!--
 defineSeed(293, 286, makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsWidget, Q$UIObject, Q$Widget]));
 var maybeDetachCommand, rootPanels, widgetsToDetach;
 function RootPanel$1_0(){
@@ -8183,8 +8266,6 @@ function $attachShader(this$static, program, shader){
   this$static.attachShader(program, shader);
 }
 
---></script>
-<script><!--
 function $bindBuffer(this$static, target, buffer){
   this$static.bindBuffer(target, buffer);
 }
@@ -9188,6 +9269,8 @@ function increment_0(){
 }
 
 var back_0, count_0 = 0, front;
+--></script>
+<script><!--
 function $$init_0(this$static){
   this$static.impl = new StringBufferImplAppend_0;
 }
@@ -9287,8 +9370,6 @@ _.toString$ = function toString_21(){
   return this.impl.string;
 }
 ;
---></script>
-<script><!--
 function arraycopy(src, srcOfs, dest, destOfs, len){
   var destArray, destComp, destEnd, destType, destlen, srcArray, srcComp, srcType, srclen;
   if (src == null || dest == null) {
@@ -10307,6 +10388,8 @@ _.toArray = function toArray_3(){
   return clone(this.array);
 }
 ;
+--></script>
+<script><!--
 _.toArray_0 = function toArray_4(out){
   var i, size;
   size = this.array.length;
@@ -10409,8 +10492,6 @@ function Collections$UnmodifiableList_0(list){
 }
 
 defineSeed(364, 362, makeCastMap([Q$List]), Collections$UnmodifiableList_0);
---></script>
-<script><!--
 _.equals$ = function equals_14(o){
   return $equals(this.list, o);
 }
@@ -11191,6 +11272,11 @@ function $setVolume_3(this$static, volume){
   !!this$static.impl && $setVolumeImpl(this$static, this$static.volume_0);
 }
 
+function $stop_0(this$static){
+  this$static.playing = false;
+  !!this$static.impl && this$static.impl.stop_0();
+}
+
 defineSeed(390, 1, {});
 _.impl = null;
 _.looping = false;
@@ -11416,6 +11502,8 @@ function $destroyAll(this$static, self_0){
   }
 }
 
+--></script>
+<script><!--
 function $findChild(this$static, child, depth){
   var c, ii, ll, startIdx;
   startIdx = $findInsertion(this$static, depth);
@@ -11514,8 +11602,6 @@ function $remove_12(this$static, index){
   child.parent_0 = null;
 }
 
---></script>
-<script><!--
 function $remove_13(this$static, child){
   var index;
   index = $findChild(this$static, child, child.depth);
@@ -12080,7 +12166,7 @@ _.responseCode = 0;
 defineSeed(426, 425, {});
 _.payload = null;
 function run_1(game){
-  $run(platform_1, game);
+  $run_0(platform_1, game);
 }
 
 var platform_1 = null;
@@ -12222,6 +12308,8 @@ function $setTransform(this$static, m00, m01, m10, m11, tx, ty){
 }
 
 defineSeed(434, 435, {});
+--></script>
+<script><!--
 _.inverseTransform = function inverseTransform(p, into){
   var det, rdet, x, y;
   x = p.x - this.tx;
@@ -12325,8 +12413,6 @@ _.set_1 = function set_0(other){
   return this;
 }
 ;
---></script>
-<script><!--
 function $equals_3(this$static, other){
   var ofmt;
   if (instanceOf(other, Q$TextFormat)) {
@@ -13200,6 +13286,8 @@ _.clear_1 = function clear_2(r, g, b, a){
   $glClear(this.gl, 16384);
 }
 ;
+--></script>
+<script><!--
 _.createFramebufferImpl = function createFramebufferImpl(tex){
   var fbuf;
   fbuf = initDim(_3I_classLit, makeCastMap([Q$Serializable]), -1, 1, 1);
@@ -13277,8 +13365,6 @@ function $getAttrib(this$static, name_0, size, type){
   return loc < 0?null:new GL20Program$10_0(this$static, loc, size, type);
 }
 
---></script>
-<script><!--
 function $getUniform1i(this$static){
   var loc;
   loc = $glGetUniformLocation(this$static.gl, this$static.program, 'u_Texture');
@@ -14075,6 +14161,8 @@ function QuadShader_0(ctx){
 }
 
 defineSeed(481, 468, {}, QuadShader_0);
+--></script>
+<script><!--
 _.createTextureCore = function createTextureCore_0(){
   return new QuadShader$QuadCore_0(this, $replace_1($replace_1('uniform vec2 u_ScreenSize;\nuniform vec4 u_Data[_VEC4S_PER_QUAD_*_MAX_QUADS_];\nattribute vec3 a_Vertex;\nvarying vec2 v_TexCoord;\nvarying vec4 v_Color;\nvoid main(void) {\nint index = _VEC4S_PER_QUAD_*int(a_Vertex.z);\nvec4 mat = u_Data[index+0];\nvec4 txc = u_Data[index+1];\nvec4 tcs = u_Data[index+2];\nmat3 transform = mat3(\n  mat.x, mat.y, 0,\n  mat.z, mat.w, 0,\n  txc.x, txc.y, 1);\ngl_Position = vec4(transform * vec3(a_Vertex.xy, 1.0), 1.0);\ngl_Position.xy /= u_ScreenSize.xy;\ngl_Position.x -= 1.0;\ngl_Position.y = 1.0 - gl_Position.y;\nv_TexCoord = a_Vertex.xy * tcs.xy + txc.zw;\nfloat red = mod(tcs.z, 256.0);\nfloat alpha = (tcs.z - red) / 256.0;\nfloat blue = mod(tcs.w, 256.0);\nfloat green = (tcs.w - blue) / 256.0;\nv_Color = vec4(red / 255.0, green / 255.0, blue / 255.0, alpha / 255.0);\n}', '_MAX_QUADS_', '' + this.maxQuads), '_VEC4S_PER_QUAD_', '3'), $textureFragmentShader());
 }
@@ -14158,8 +14246,6 @@ _.destroy = function destroy_6(){
   $destroy(this.data);
 }
 ;
---></script>
-<script><!--
 _.flush = function flush_5(){
   $bindTexture_0(this.this$0_0.ctx, this.lastTex);
   if (this.quadCounter == 0)
@@ -15018,6 +15104,8 @@ function $glViewport(this$static, w, h_0){
   $viewport(this$static.gl, 0, 0, w, h_0);
 }
 
+--></script>
+<script><!--
 function $prepareDraw(this$static){
   var data, elementSize, enabled, i, mask, previousElementSize, previousNio;
   previousNio = null;
@@ -15124,8 +15212,6 @@ function values_25(){
 }
 
 defineSeed(506, 26, makeCastMap([Q$Serializable, Q$Comparable, Q$Enum, Q$HtmlGL20$WebGLObjectType]), HtmlGL20$WebGLObjectType_0);
---></script>
-<script><!--
 var $VALUES_24, BUFFER, FRAME_BUFFER, NULL, PROGRAM, RENDER_BUFFER, SHADER, TEXTURE, UNIFORM_LOCATION;
 function $tryBasicGLCalls(this$static){
   var err, pixelData, testFloat32Array, testInt32Array, testUint16Array, testUint8Array;
@@ -15948,6 +16034,8 @@ _.handleEvent = function handleEvent_3(nativeEvent){
 }
 ;
 _.this$0 = null;
+--></script>
+<script><!--
 function HtmlKeyboard$3_0(this$0){
   this.this$0 = this$0;
 }
@@ -16095,8 +16183,6 @@ function HtmlMouse$2_0(this$0, val$platform, val$rootElement){
   HtmlMouse$1XYEventHandler_0.call(this, val$platform, val$rootElement);
 }
 
---></script>
-<script><!--
 defineSeed(532, 531, {}, HtmlMouse$2_0);
 _.handleEvent_0 = function handleEvent_8(ev, x, y){
   this.this$0.inDragSequence = true;
@@ -16264,7 +16350,7 @@ function $requestAnimationFrame(callback){
   $wnd.requestAnimationFrame?$wnd.requestAnimationFrame(fn):$wnd.mozRequestAnimationFrame?$wnd.mozRequestAnimationFrame(fn):$wnd.webkitRequestAnimationFrame?$wnd.webkitRequestAnimationFrame(fn):$wnd.setTimeout(fn, 20);
 }
 
-function $run(this$static, game){
+function $run_0(this$static, game){
   $init_0(game);
   this$static.paintCallback = new HtmlPlatform$1_0(this$static, game);
   $requestAnimationFrame(this$static.paintCallback);
@@ -16921,6 +17007,8 @@ function ifloor(v){
   return v >= 0 || iv == v || iv == -2147483648?iv:iv - 1;
 }
 
+--></script>
+<script><!--
 function toString_48(value){
   var buf, ii, ivalue;
   buf = new StringBuilder_0;
@@ -17121,8 +17209,6 @@ defineSeed(579, 1, {});
 _._listeners = null;
 _._pendingRuns = null;
 var DISPATCHING;
---></script>
-<script><!--
 function $clinit_AbstractSignal(){
   $clinit_AbstractSignal = nullMethod;
   $clinit_Reactor();
@@ -17990,6 +18076,8 @@ function Field_0(initialText){
   Field_1.call(this, initialText, ($clinit_Styles() , $clinit_Styles() , _noneSingleton));
 }
 
+--></script>
+<script><!--
 function Field_1(initialText, styles){
   TextWidget_0.call(this);
   this._styles = styles;
@@ -18098,8 +18186,6 @@ function $addTextSize(this$static, size){
   }
 }
 
---></script>
-<script><!--
 function $layout_0(this$static, left, top_0, width, height){
   var ctx, cty, ihei, iheight, iwid, iwidth, ix, iy, tx, ty, usedHeight, usedWidth;
   tx = left;
@@ -18822,6 +18908,8 @@ _.offset = function offset_2(size, extent){
   return (extent - size) / 2;
 }
 ;
+--></script>
+<script><!--
 function Style$HAlignStyle_0(){
   this.inherited = false;
   this.left_0 = new Style$Binding_0(this, ($clinit_Style$HAlign() , LEFT_2));
@@ -18902,8 +18990,6 @@ function Style$TextEffect$2_0(){
 }
 
 defineSeed(662, 660, makeCastMap([Q$Serializable, Q$Comparable, Q$Enum, Q$Style$EffectFactory, Q$Style$TextEffect]), Style$TextEffect$2_0);
---></script>
-<script><!--
 _.createEffectRenderer = function createEffectRenderer_0(elem){
   return new EffectRenderer$VectorOutline_0(resolveStyle(elem, ($clinit_Style() , HIGHLIGHT)).value_0, resolveStyle(elem, OUTLINE_WIDTH).value_0, resolveStyle(elem, OUTLINE_CAP), resolveStyle(elem, OUTLINE_JOIN));
 }
@@ -19736,6 +19822,8 @@ _.render_0 = function render_3(canvas, text, textColor, underlined, x, y){
 ;
 _.gradientColor = 0;
 _.gradientType = null;
+--></script>
+<script><!--
 function EffectRenderer$PixelOutline_0(outlineColor){
   $clinit_EffectRenderer();
   this.outlineColor = outlineColor;
@@ -19822,8 +19910,6 @@ _.hashCode$ = function hashCode_27(){
   return this.shadowColor ^ round_int(this.shadowX) ^ round_int(this.shadowY);
 }
 ;
---></script>
-<script><!--
 _.render_0 = function render_5(canvas, text, textColor, underlined, x, y){
   var bounds, sx, sy, tx, ty;
   tx = this.shadowX < 0?-this.shadowX:0;
@@ -20204,8 +20290,7 @@ function $add_13(this$static, action){
 function $execute_0(runnable){
   var $e0, e;
   try {
-    drawString('' + runnable.this$0.countDownCounter--, 0, 0, runnable.this$0.timerLayer, 32, 250);
-    runnable.this$0.countDownCounter < 0 && $finishGame(runnable.this$0);
+    $run(runnable);
   }
    catch ($e0) {
     $e0 = caught_0($e0);
