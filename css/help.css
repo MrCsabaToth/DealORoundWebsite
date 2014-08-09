@@ -1,0 +1,23 @@
+tbody {
+  padding: 5px;
+}
+
+thead {
+  padding: 5px;
+}
+
+tr {
+  padding: 5px;
+}
+
+td {
+  padding: 5px;
+}
+
+.score {
+  text-align: right;
+}
+
+ul {
+  list-style:none;
+}
