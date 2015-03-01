@@ -70,11 +70,18 @@
 
       <div class="row">
         <div class="col-md-12">
-          <p>Poker hands are created by pressing your finger on a card and dragging up, down, left or right.
-             Diagonal selection is only allowed on the first level.
-             As you drag the cards will dim indicating that they have been selected.
+          <p>Poker hands are created by pressing your finger on a card and dragging up, down, left or right
+             (a.k.a swipe gesture mode).
+             As you drag your finger the selected cards will dim yellow indicating that they have been selected.
+             Those neighboring cards which can potentially additionally selected are dimmed orange.
              Releasing your finger causes the game to evaluate the hand.
-             Be sure to release while selecting your last card or the selection will not be made.</p>
+             The game allows a slower method of selection mode too: selecting cards one-by-one.
+             The game intelligently recognizes that mode if you select a lonely card. You can follow the
+             orange dim to broaden the selection by clicking on orange cards, one-by-one. A hand can
+             contain no more than 5 cards. You can press the "Eval" button to trigger the evaluation of the
+             currently selected hand. In this mode the game cannot guess when your selection is done
+             (as opposed to the swipe mode). In regular difficulty mode the hand can contain only cards which
+             contributes to the score, there are no outlier cards allowed.</p>
         </div>
       </div>
 
@@ -110,7 +117,9 @@
           <p>Poker hands are assigned points based on the complexity
              of the hand (pair, three of a kind, etc.)
              in addition to an assigned value of the individual cards.
-             Points are listed on the top right side of the game.</p>
+             Accunulated points are listed on the top right side of the game.
+             The blue information section provides information about the
+             current selection.</p>
         </div>
       </div>
 
@@ -119,23 +128,23 @@
           <p>
             <table>
               <thead>
-                <tr><th>Hand</th><th>Base Value</th></tr>
+                <tr><th>Hand</th><th>Base Value</th><th>Time Bonus</th></tr>
               </thead>
               <tbody>
-                <tr><td>Pair</td><td class="score">100</td></tr>
-                <tr><td>Three Card Straight</td><td class="score">200</td></tr>
-                <tr><td>Three Card Flush</td><td class="score">300</td></tr>
-                <tr><td>Three Card Straight Flush</td><td class="score">400</td></tr>
-                <tr><td>Two Pair</td><td class="score">500</td></tr>
-                <tr><td>Three of a Kind</td><td class="score">600</td></tr>
-                <tr><td>Four Card Straight</td><td class="score">700</td></tr>
-                <tr><td>Four Card Flush</td><td class="score">800</td></tr>
-                <tr><td>Four Card Straight Flush</td><td class="score">900</td></tr>
-                <tr><td>Straight</td><td class="score">1100</td></tr>
-                <tr><td>Flush</td><td class="score">1200</td></tr>
-                <tr><td>Full House</td><td class="score">1300</td></tr>
-                <tr><td>Four of a Kind</td><td class="score">1400</td></tr>
-                <tr><td>Straight Flush</td><td class="score">1500</td></tr>
+                <tr><td>Three Card Flush</td><td class="score">40</td><td class="score">0</td></tr>
+                <tr><td>Pair</td><td class="score">50</td><td class="score">0</td></tr>
+                <tr><td>Three Card Straight</td><td class="score">100</td><td class="score">0</td></tr>
+                <tr><td>Pairs</td><td class="score">150</td><td class="score">0</td></tr>
+                <tr><td>Four Card Flush</td><td class="score">200</td><td class="score">0</td></tr>
+                <tr><td>Three of a Kind</td><td class="score">350</td><td class="score">0</td></tr>
+                <tr><td>Four Card Straight</td><td class="score">400</td><td class="score">0</td></tr>
+                <tr><td>Full House</td><td class="score">750</td><td class="score">0</td></tr>
+                <tr><td>Flush</td><td class="score">800</td><td class="score">0</td></tr>
+                <tr><td>Straight</td><td class="score">1000</td><td class="score">0</td></tr>
+                <tr><td>Three Card Straight Flush</td><td class="score">1500</td><td class="score">0</td></tr>
+                <tr><td>Four of a Kind</td><td class="score">2000</td><td class="score">30</td></tr>
+                <tr><td>Four Card Straight Flush</td><td class="score">2500</td><td class="score">60</td></tr>
+                <tr><td>Straight Flush</td><td class="score">3500</td><td class="score">120</td></tr>
               </tbody>
             </table>
           </p>
