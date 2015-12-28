@@ -56,42 +56,100 @@
     <!-- Main jumbotron -->
     <div class="jumbotron">
       <div class="container">
-        <h1>How to play (<a href="https://www.youtube.com/watch?v=bbW-ZzJ1_L4">play through video of an older version</a>)</h1>
+        <h1>How to play (<a href="https://www.youtube.com/watch?v=bbW-ZzJ1_L4">play through video - of an older version</a>)</h1>
       </div>
     </div>
 
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <p>In the bneginning on the first level you have two minutes to create poker hands.
-             The countdown timer is located on the top left side of the game.</p>
+          <p>In the bneginning on the first level you have <b>two minutes</b> to create poker hands.
+             The <b>countdown</b> timer is located on the top left side of the game.</p>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-12">
-          <p>Poker hands can be created in two separate fashion:
+          <h2>Selection</h2>
+          <p>Poker hands can be created by two separate selection method:
             <ol>
-              <li>"Swipe gesture mode": by pressing your finger on a card and dragging up, down, left or right
-                (and depending on the mode and/or difficulty level even laterally). You do not release your finger
-                in this mode but continuously keep moving it and selecting more cards.
-                As you drag your finger the selected cards will dim yellow indicating that they have been selected.
+              <li><p><b>"Swipe gesture mode"</b>: by pressing your finger on a card and dragging up, down, left or right
+                (and depending on the mode and/or difficulty mode even laterally). You should not release your finger
+                in this mode but until you want to finsh the selection, you should continuously keep moving your finger and
+                selecting more cards.</p>
+                <p>As you drag your finger the selected cards will dim yellow indicating that they have been selected.
                 Releasing your finger causes the game to evaluate the hand.
-                In easier diifculty settings and levels as an aid neighboring cards which can potentially additionally
-                selected are dimmed orange.
+                In certain difficulty modes and game levels a visual aid will highlight (with an orange dim) those neighboring
+                cards which can be selected additionally.</p>
               </li>
-              <li>"Clicking one-by-one": that is a different selection style.
-                The game intelligently recognizes that mode if you select a lonely card. If such an aid is applied
-                you can follow the orange dim to broaden the selection by clicking on orange cards, one-by-one.
-                (If thre's no aid, you just have to try to select proper neighbors.)
-                You may press the "Eval" button to trigger the evaluation of the
-                currently selected hand. In this mode the game cannot guess when your selection is done
+              <li><p><b>"Clicking one-by-one"</b>: individually pressing your finger and releasing over the desired cards.
+                The game intelligently recognizes that mode if you frist select a lonely card. If visual aid to highlight
+                selectable neighbors, you can follow the orange dim to broaden the selection by clicking on orange cards,
+                one-by-one.
+                (If there's no visual aid, you just have to follow the rules to select proper neighbors. If you select a non
+                neighboring card, a new selection begins with that card being the only selected.)</p>
+                <p>You should press the "Eval" button to indicate the end of selection and that will also trigger the
+                evaluation of the currently selected hand. In this mode the game cannot guess when your selection is done
                 (as opposed to the swipe gesture mode). If you click on an already selected card it becomes unselected.
-                This can be useful when you change your mind and you are exploring different poker possiblities.
+                This can be useful when you change your mind and you are exploring different poker possiblities.</p>
               </li>
             </ol>
             A hand can contain no more than 5 cards and all of the participating cards should contributes to the score,
             there are no outlier cards allowed.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Neighbor highlighting</h3>
+          <p>
+            This is a visual aid which helps to indicate the rules of the game and can tremndously help the human eye
+            to consider possible selections. The selected hand is dimmed yellow, while the potential selectable neighbors
+            are dimmed orange.
+          </p>
+          <p>
+            This aid is turned on for educational purposes on the first level of each difficulty mode. For further
+            availablility see <a href="#difficulty_modes">"Difficulty Modes"</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Diagonal selections</h3>
+          <p>
+            Being able to select diagonal neighbors can greatly increase the hand possiblities in case of
+            square board layout. With hexagonal layout this question doesn't apply, because the diagonal
+            neighbors are inherently side neighbors too.
+          </p>
+          <p>
+            As for square layout easy mode, diagonal selection is allowed in all game levels, and in
+            medium mode it is available for a while. For further details see <a href="#difficulty_modes">
+            "Difficulty Modes"</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3 id="difficulty_modes">Difficulty Modes</h3>
+          <p>
+            <ol>
+              <li><b>Easy</b>:
+                Neighbor highlight is available and diagonal selection (in case of square board layout) is possible
+                on all game levels in this mode. Time adjustments and score limits are the mildest.
+              </li>
+              <li><b>Medium</b>:
+                Neighbor highlight is available on the first 5 levels. Diagonal selection (in case of square board layout)
+                is possible on the first two game levels in this mode. Time adjustments and score limits are thougher than
+                the Easy mode but milder than the Hard mode.
+              </li>
+              <li><b>Hard</b>:
+                Neighbor highlight is only available on the first level. Diagonal selection (in case of square board layout)
+                is not allowed. Time adjustments and score limits are the hardest among all modes.
+              </li>
+            </ol>
           </p>
         </div>
       </div>
@@ -131,7 +189,7 @@
           <p>Poker hands are assigned points based on the complexity
              of the hand (pair, three of a kind, etc.)
              in addition to an assigned value of the individual cards.
-             Accunulated points are listed on the top right side of the game.
+             Accumulated points are listed on the top right side of the game.
              The blue information section provides information about the
              current selection, including the calculated value.</p>
         </div>
