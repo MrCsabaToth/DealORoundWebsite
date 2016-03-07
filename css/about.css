@@ -17,7 +17,19 @@ td {
 ul {
   list-style:none;
 }
-
+/*
 body {
+  color: #002805;
+}
+
+html {*/
+/* http://sixrevisions.com/css/responsive-background-image/ */
+body {
+  background: url(../img/badwolf1366.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
   color: #002805;
 }
